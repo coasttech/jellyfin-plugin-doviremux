@@ -1,5 +1,5 @@
 # jellyfin-plugin-doviremux
-A giant hack that remuxes my Dolby Vision videos from MKV to MP4, so that my WebOS-based LG TV can play them.
+A giant hack that remuxes my Dolby Vision videos from MKV to MP4 so that my WebOS-based LG TV can play them. It's useful for anyone whose devices or Jellyfin default to Dolby Vision when both Dolby Vision and HDR10 tracks exist, letting them remove Dolby Vision with a simple plugin.
 
 ## How to use
 > [!WARNING]
@@ -12,11 +12,14 @@ A giant hack that remuxes my Dolby Vision videos from MKV to MP4, so that my Web
 - If you don't want the remuxed versions to appear as their own items in the library, use the separate [Merge Versions plugin](https://github.com/danieladov/jellyfin-plugin-mergeversions)
   - This used to be core functionality, but the other plugin does it better
 
+### Output options
+After remuxing, you can either delete the original Dolby Vision source or keep both versions (the HDR10-only MP4 alongside the untouched original).
+
 ### Config options
 - Include Ancestor IDs
-  - Used if you want to limit the plugin to a specific library/show/season/movie/whatever:
-    - Update the "Include Ancestor IDs" config option with the ID of the parent item(s) you want to remux. Usually you can open its page in Jellyfin and take the value of the `id` parameter in the address bar.
-    - If you later want to remux **everything**, leave that option completely empty.
+  - Limit remuxing to a specific library/show/season/movie or even a single item.
+    - Open the item (or its parent) in Jellyfin and copy the value of the `id` parameter in the address bar, then enter one or more IDs separated by commas in the config field.
+    - Leave this option empty to remux **all** Dolby Vision items in your library.
 - Skip/cleanup items watched by
   - When set to a username, the plugin won't remux otherwise-eligible items that this user has already watched. It will also delete remuxes once the user has watched them.
   - The cleanup functionality can be triggered by running the "Clean up Dolby Vision remuxes" scheduled task, which is unscheduled by default (I have mine set to run every 6 hours).
